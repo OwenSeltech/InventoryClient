@@ -1,0 +1,58 @@
+﻿@model IEnumerable<InventoryClient.Models.Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h1>Products</h1>
+
+<p>
+    <button class="btn btn-primary btn-sm mb-3 btn-round" id="showAddModal"><i class="feather icon-plus"></i>Create New </button>
+</p>
+<table class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.productID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.productName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.inventoryQuantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dateAdded)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.productID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.productName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.inventoryQuantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dateAdded)
+            </td>
+            <td>
+                <button class="btn btn-success selbtn" data-id="@item.productID">Edit</button>
+                <button class="btn bg-warning delbtn" data-id="@item.productID">Delete</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

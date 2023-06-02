@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header">
+				<h5 class="h-100 d-flex align-items-center justify-content-center">Dashboard</h5>
+			</div>
+			<div class="card-body">
+				<div class="alert alert-success">
+					<a class="nav-link text-dark text-center" asp-area="" asp-controller="Products" asp-action="Index">Manage Products</a>
+				</div>
+				<div class="alert alert-success">
+					<a class="nav-link text-dark text-center" asp-area="" asp-controller="BackEnd" asp-action="ManageDishTypes">Manage Dish Types</a>
+				</div>
+				<div class="alert alert-success">
+					<a class="nav-link text-dark text-center" asp-area="" asp-controller="BackEnd" asp-action="ManageRestaurants">Manage Restaurants</a>
+				</div>
+				<div class="alert alert-success">
+					<a class="nav-link text-dark text-center" asp-area="" asp-controller="BackEnd" asp-action="Reports">View Reports</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
