@@ -56,3 +56,105 @@
 }
     </tbody>
 </table>
+<div id="modalContainer"></div>
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#showAddModal').click(function () {
+                $.ajax({
+                    url: '/Products/_AddProduct',
+                    type: 'GET',
+                    success: function (result) {
+                        $('#modalContainer').html(result);
+                        $('#modalAdd').modal('show');
+                        $("#MsgOut").text("");
+                        $("#dvMessage").hide();
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $('.selbtn').click(function () {
+                var productId = $(this).data('id');
+                $.ajax({
+                    url: '/Products/_EditProduct',
+                    type: 'GET',
+                    data: { productId: productId },
+                    success: function (result) {
+                        $('#modalContainer').html(result);
+                        $('#modalAdd').modal('show');
+                        $("#MsgOut").text("");
+                        $("#dvMessage").hide();
+                        $('#myHiddenField').val(productId);
+                    }
+                });
+            });
+        });
+        $(document).ready(function () {
+            $('.delbtn').click(function () {
+                var productId = $(this).data('id');
+                $.ajax({
+                    url: '/Products/_DeleteProduct',
+                    type: 'Get',
+                    data: { productId: productId },
+                    success: function (result) {
+                        $('#modalContainer').html(result);
+                        $('#modalAdd').modal('show');
+                        $("#MsgOut").text("");
+                        $("#dvMessage").hide();
+                        $('#myHiddenField').val(productId);
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            var strValue = "@((string)ViewBag.mssg)";
+            if (strValue !== null && strValue !== "" && strValue !== "An error occurred: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.") {
+                $.ajax({
+                    url: '/Products/_AddProduct',
+                    type: 'GET',
+                    success: function (result) {
+                        $('#modalContainer').html(result);
+                        $('#modalAdd').modal('show');
+                        $("#MsgOut").text(strValue);
+                        $("#dvMessage").show();
+                    }
+                });
+            }
+            else {
+                var strValue = "@((string)ViewBag.mssgEdit)";
+                if (strValue !== null && strValue !== "") {
+                    var productId = strValue.split(":")[0];
+                    var msgOut = strValue.split(":")[1];
+                    $.ajax({
+                        url: '/Products/_EditProduct',
+                        type: 'GET',
+                        data: { productId: productId },
+                        success: function (result) {
+                            $('#modalContainer').html(result);
+                            $('#modalAdd').modal('show');
+                            $("#MsgOut").text(msgOut);
+                            $("#dvMessage").show();
+                        }
+                    });
+                }
+            }
+
+        });
+    </script>
+    <script>
+        $(function () {
+            var strValue = "@((string)ViewBag.mssgPop)";
+            console.log(strValue);
+            if (strValue !== null && strValue !== "") {
+                console.log("fore");
+                Swal.fire(strValue);
+            }
+        });
+    </script>
+}
+

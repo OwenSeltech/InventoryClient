@@ -1,0 +1,49 @@
+﻿@model InventoryClient.Models.ProductRequestModel
+@using InventoryClient.Extensions;
+
+<form asp-controller="Products" asp-action="_DeleteProduct" data-ajax="true" data-ajax-method="POST">
+    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Product</h5>
+                    <input type="hidden" id="myHiddenField" name="myHiddenField" value="" />
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="row">
+                            <div id="dvMessage" style="display:none" class="alert alert-danger">
+                                <span id="MsgOut">@ViewBag.Message</span>
+                            </div>
+                            <br />
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <p>Are you sure you want to delete the following product?</p>
+                                    <p>Product Name: @Model.ProductName</p>
+                                    <p>Product Price: @Model.Price</p>
+                                </div>
+                                @Html.HiddenFor(model => model.ProductID, new { @id = "myHiddenField" })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button class="btn btn-danger">Delete</button>
+                                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@if (@ViewBag.Message != null)
+{
+    <script type="text/javascript">
+        $(function () {
+            $("#dvMessage").show();
+        });
+    </script>
+}

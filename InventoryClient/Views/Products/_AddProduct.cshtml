@@ -1,0 +1,59 @@
+﻿@model InventoryClient.Models.ProductRequestModel
+@using InventoryClient.Extensions;
+
+<form asp-controller="Products" asp-action="_AddProduct" data-ajax="true" data-ajax-method="POST">
+    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Product</h5>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="row">
+                            <div id="dvMessage" style="display:none" class="alert alert-danger">
+                                <span id="MsgOut">@ViewBag.Message</span>
+                            </div>
+                            <br />
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="floating-label" for="Name">Product Name</label>
+                                        @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control" })
+                                        <span class="field-validation-valid" data-valmsg-for="ProductName" data-valmsg-replace="true"></span>
+                                    </div>
+                                    <div class="row">
+                                        <label class="floating-label" for="Name">Inventory Quantity</label>
+                                        @Html.NumberTextBoxFor(m => m.InventoryQuantity, new { @class = "form-control" })
+                                        <span class="field-validation-valid" data-valmsg-for="InventoryQuantity" data-valmsg-replace="true"></span>
+                                    </div>
+                                    <div class="row">
+                                        <label class="floating-label" for="Name">Price</label>
+                                        @Html.NumberTextBoxFor(m => m.Price, new { @class = "form-control" })
+                                        <span class="field-validation-valid" data-valmsg-for="Price" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button class="btn btn-primary">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@if (@ViewBag.Message != null)
+{
+    <script type="text/javascript">
+        $(function () {
+            $("#dvMessage").show();
+        });
+    </script>
+}
+
