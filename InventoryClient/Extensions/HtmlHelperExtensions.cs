@@ -3,6 +3,8 @@ using System.Linq.Expressions;
 using System.Text;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+
 
 namespace InventoryClient.Extensions
 {
@@ -35,6 +37,27 @@ namespace InventoryClient.Extensions
             }
 
             return inputTag;
+        }
+        public static IHtmlContent EmailInputFor<TModel, TResult>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TResult>> expression, string cssClass = null)
+        {
+            // Generate the email input element based on the expression
+            var emailInput = htmlHelper.TextBoxFor(expression, new { type = "email", @class = cssClass });
+
+            // Add custom email validation attributes
+            emailInput = emailInput
+                .Attr("pattern", @"^[\w\.-]+@[\w\.-]+\.\w+$")
+                .Attr("title", "Please enter a valid email address");
+
+            return emailInput;
+        }
+
+        private static IHtmlContent Attr(this IHtmlContent content, string attribute, string value)
+        {
+            var writer = new System.IO.StringWriter();
+            content.WriteTo(writer, System.Text.Encodings.Web.HtmlEncoder.Default);
+            var modifiedContent = writer.ToString().TrimEnd('>');
+            modifiedContent += $" {attribute}=\"{value}\">";
+            return new HtmlString(modifiedContent);
         }
     }
 }
