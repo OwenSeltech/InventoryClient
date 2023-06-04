@@ -1,10 +1,10 @@
-﻿@model IEnumerable<InventoryClient.Models.Invoice>
+﻿@model IEnumerable<InventoryClient.Models.CreditNote>
 
 @{
-    ViewData["Title"] = "Invoices";
+    ViewData["Title"] = "CreditNotes";
 }
 
-<h1>Invoices</h1>
+<h1>Credit Notes</h1>
 
 <p>
     <button class="btn btn-primary btn-sm mb-3 btn-round" id="showAddModal"><i class="feather icon-plus"></i>Create New </button>
@@ -22,13 +22,12 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.invoiceID)
+                @Html.DisplayNameFor(model => model.creditNoteID)
             </th>
             <th>Customer Name</th>
-            <th>Product Name</th>
-            <th>Product Price</th>
-            <th>Quantity</th>
-            <th>Total Amount</th>
+            <th>Invoice Id</th>
+            <th>Invoice Amount</th>
+            <th>Credit Amount</th>
             <th>
                 @Html.DisplayNameFor(model => model.dateAdded)
             </th>
@@ -39,29 +38,26 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.invoiceID)
+                @Html.DisplayFor(modelItem => item.creditNoteID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FullName)
+                 @Html.DisplayFor(modelItem => item.FullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.product.productName)
+                @Html.DisplayFor(modelItem => item.invoice.invoiceID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.product.price)
-             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.itemsNo)
+                 @Html.DisplayFor(modelItem => item.invoice.invoiceAmount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.invoiceAmount)
+                @Html.DisplayFor(modelItem => item.creditAmount)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.dateAdded)
             </td>
             <td>
-                    <button class="btn btn-success selbtn" data-id="@item.invoiceID">Edit</button>
-                    <button class="btn bg-warning delbtn" data-id="@item.invoiceID">Delete</button>
+                <button class="btn btn-success selbtn" data-id="@item.creditNoteID">Edit</button>
+                <button class="btn bg-warning delbtn" data-id="@item.creditNoteID">Delete</button>
             </td>
         </tr>
 }
@@ -74,7 +70,7 @@
         $(document).ready(function () {
             $('#showAddModal').click(function () {
                 $.ajax({
-                    url: '/Invoices/_AddInvoice',
+                    url: '/CreditNotes/_AddCreditNote',
                     type: 'GET',
                     success: function (result) {
                         $('#modalContainer').html(result);
@@ -88,34 +84,34 @@
 
         $(document).ready(function () {
             $('.selbtn').click(function () {
-                var invoiceId = $(this).data('id');
+                var creditNoteId = $(this).data('id');
                 $.ajax({
-                    url: '/Invoices/_EditInvoice',
+                    url: '/CreditNotes/_EditCreditNote',
                     type: 'GET',
-                    data: { invoiceId: invoiceId },
+                    data: { creditNoteId: creditNoteId },
                     success: function (result) {
                         $('#modalContainer').html(result);
                         $('#modalAdd').modal('show');
                         $("#MsgOut").text("");
                         $("#dvMessage").hide();
-                        $('#myHiddenField').val(invoiceId);
+                        $('#myHiddenField').val(creditNoteId);
                     }
                 });
             });
         });
         $(document).ready(function () {
             $('.delbtn').click(function () {
-                var invoiceId = $(this).data('id');
+                var creditNoteId = $(this).data('id');
                 $.ajax({
-                    url: '/Invoices/_DeleteInvoice',
+                    url: '/CreditNotes/_DeleteCreditNote',
                     type: 'Get',
-                    data: { invoiceId: invoiceId },
+                    data: { creditNoteId: creditNoteId },
                     success: function (result) {
                         $('#modalContainer').html(result);
                         $('#modalAdd').modal('show');
                         $("#MsgOut").text("");
                         $("#dvMessage").hide();
-                        $('#myHiddenField').val(invoiceId);
+                        $('#myHiddenField').val(creditNoteId);
                     }
                 });
             });
@@ -126,7 +122,7 @@
             var strValue = "@((string)ViewBag.mssg)";
             if (strValue !== null && strValue !== "" && strValue !== "An error occurred: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.") {
                 $.ajax({
-                    url: '/Invoices/_AddInvoice',
+                    url: '/CreditNotes/_AddCreditNote',
                     type: 'GET',
                     success: function (result) {
                         $('#modalContainer').html(result);
@@ -139,12 +135,12 @@
             else {
                 var strValue = "@((string)ViewBag.mssgEdit)";
                 if (strValue !== null && strValue !== "") {
-                    var invoiceId = strValue.split(":")[0];
+                    var creditNoteId = strValue.split(":")[0];
                     var msgOut = strValue.split(":")[1];
                     $.ajax({
-                        url: '/Invoices/_EditInvoice',
+                        url: '/CreditNotes/_EditCreditNote',
                         type: 'GET',
-                        data: { invoiceId: invoiceId },
+                        data: { creditNoteId: creditNoteId },
                         success: function (result) {
                             $('#modalContainer').html(result);
                             $('#modalAdd').modal('show');
@@ -183,4 +179,5 @@
         });
     </script>
 }
+
 

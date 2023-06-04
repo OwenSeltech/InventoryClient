@@ -1,0 +1,54 @@
+﻿@model InventoryClient.Models.CreditNoteRequestModel
+@using InventoryClient.Extensions;
+
+<form asp-controller="CreditNotes" asp-action="_AddCreditNote" data-ajax="true" data-ajax-method="POST">
+    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Credit Note</h5>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="row">
+                            <div id="dvMessage" style="display:none" class="alert alert-danger">
+                                <span id="MsgOut">@ViewBag.Message</span>
+                            </div>
+                            <br />
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="floating-label" for="Name">Invoice</label>
+                                        @Html.DropDownListFor(m => m.InvoiceID,Model.Invoices, "Please select", new { @class = "form-control" })
+                                        <span class="field-validation-valid" data-valmsg-for="CreditNoteName" data-valmsg-replace="true"></span>
+                                    </div>
+                                    <div class="row">
+                                        <label class="floating-label" for="Name">Credit Amount</label>
+                                        @Html.NumberTextBoxFor(m => m.CreditAmount, new { @class = "form-control" })
+                                        <span class="field-validation-valid" data-valmsg-for="CreditAmount" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button class="btn btn-primary">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@if (@ViewBag.Message != null)
+{
+    <script type="text/javascript">
+        $(function () {
+            $("#dvMessage").show();
+        });
+    </script>
+}
+

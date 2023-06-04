@@ -1,0 +1,60 @@
+﻿@model InventoryClient.Models.QuotationRequestModel
+@using InventoryClient.Extensions;
+
+<form asp-controller="Quotations" asp-action="_EditQuotation" data-ajax="true" data-ajax-method="POST">
+    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Quotation</h5>
+                    <input type="hidden" id="myHiddenField" name="myHiddenField" value="" />
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="row">
+                            <div id="dvMessage" style="display:none" class="alert alert-danger">
+                                <span id="MsgOut">@ViewBag.Message</span>
+                            </div>
+                            <br />
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="floating-label" for="Name">Customer Name</label>
+                                        @Html.DropDownListFor(m => m.CustomerID,Model.Customers, "Please select", new { @class = "form-control" })
+                                        <span class="field-validation-valid" data-valmsg-for="QuotationName" data-valmsg-replace="true"></span>
+                                    </div>
+                                    <div class="row">
+                                        <label class="floating-label" for="Name">Product</label>
+                                        @Html.DropDownListFor(m => m.ProductID,Model.Products, "Please select", new { @class = "form-control" })
+                                        <span class="field-validation-valid" data-valmsg-for="QuotationName" data-valmsg-replace="true"></span>
+                                    </div>
+                                    <div class="row">
+                                        <label class="floating-label" for="Name">Quantity</label>
+                                        @Html.NumberTextBoxFor(m => m.ItemsNo, new { @class = "form-control" })
+                                        <span class="field-validation-valid" data-valmsg-for="InventoryQuantity" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+                                @Html.HiddenFor(model => model.QuotationID, new { @id = "myHiddenField" })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button class="btn btn-primary">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@if (@ViewBag.Message != null)
+{
+    <script type="text/javascript">
+        $(function () {
+            $("#dvMessage").show();
+        });
+    </script>
+}
