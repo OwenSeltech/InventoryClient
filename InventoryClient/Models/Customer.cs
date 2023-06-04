@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace InventoryClient.Models
+﻿namespace InventoryClient.Models
 {
     public class Customer
     {

@@ -1,8 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace InventoryClient.Extensions
+﻿namespace InventoryClient.Extensions
 {
-	public static class ApplicationServiceExtensions
+    public static class ApplicationServiceExtensions
 	{
 		public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
 		{
